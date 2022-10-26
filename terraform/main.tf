@@ -1,3 +1,4 @@
+/*
 resource "aws_lb" "alb" {
 	name = "node-lambda-web-adapter-alb"
 	internal = false
@@ -68,9 +69,10 @@ resource "aws_lambda_permission" "with_lb" {
 	function_name = aws_lambda_function.node-lambda-web-adapter.function_name
 	principal = "elasticloadbalancing.amazonaws.com"
 }
+*/
 
 resource "aws_iam_role" "lambda_role" {
-  name = "lambda_role"
+  name = "node-lambda-web-adapter_role"
 
   assume_role_policy = <<EOF
 {
@@ -90,7 +92,7 @@ EOF
 }
 
 resource "aws_iam_role_policy" "lambda_policy" {
-	name = "lambda_policy"
+	name = "node-lambda-web-adapter_policy"
 	role = aws_iam_role.lambda_role.id
 
 	policy = <<EOF
@@ -109,6 +111,19 @@ resource "aws_iam_role_policy" "lambda_policy" {
   ]
 }
 EOF
+}
+
+resource "aws_lambda_function_url" "url1" {
+  function_name      = aws_lambda_function.node-lambda-web-adapter.function_name
+  authorization_type = "NONE"
+  cors {
+    allow_credentials = true
+    allow_origins     = ["*"]
+    allow_methods     = ["*"]
+    allow_headers     = ["date", "keep-alive"]
+    expose_headers    = ["keep-alive", "date"]
+    max_age           = 86400
+  }
 }
 
 resource "aws_lambda_layer_version" "layer" {
