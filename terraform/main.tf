@@ -129,7 +129,7 @@ resource "aws_lambda_function_url" "url1" {
 resource "aws_lambda_layer_version" "layer" {
   filename = "${path.module}/../temp/produles.zip"
   source_code_hash = filebase64sha256("${path.module}/../temp/produles.zip")
-  layer_name = "converge-nuid-${terraform.workspace}"
+  layer_name = "node-lambda-web-adapter-${terraform.workspace}"
   compatible_runtimes = ["nodejs16.x"]
 }
 
