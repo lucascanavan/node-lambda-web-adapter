@@ -107,6 +107,16 @@ resource "aws_iam_role_policy" "lambda_policy" {
 	  ],
 	  "Resource": "*",
 	  "Effect": "Allow"
+	},
+	{
+		"Effect": "Allow",
+		"Action": [
+			"s3:GetObject"
+		],
+		"Resource": [
+			"arn:aws:s3:::api-ao-alerts-data-uat",
+			"arn:aws:s3:::api-ao-alerts-data-uat/*"
+		]
 	}
   ]
 }

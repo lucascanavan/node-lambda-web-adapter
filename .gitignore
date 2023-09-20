@@ -4,3 +4,4 @@ temp
 .terraform*
 terraform.tfstate*
 produles
+.DS_store
