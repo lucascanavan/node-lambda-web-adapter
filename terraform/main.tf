@@ -140,20 +140,20 @@ resource "aws_lambda_layer_version" "layer" {
   filename = "${path.module}/../temp/produles.zip"
   source_code_hash = filebase64sha256("${path.module}/../temp/produles.zip")
   layer_name = "node-lambda-web-adapter-${terraform.workspace}"
-  compatible_runtimes = ["nodejs16.x"]
+  compatible_runtimes = ["nodejs18.x"]
 }
 
 resource "aws_lambda_function" "node-lambda-web-adapter" {
 	layers = [
 		aws_lambda_layer_version.layer.arn,
-	"arn:aws:lambda:ap-southeast-2:753240598075:layer:LambdaAdapterLayerX86:7"
+	"arn:aws:lambda:ap-southeast-2:753240598075:layer:LambdaAdapterLayerX86:17"
 	]
 	filename = "${path.module}/../temp/dist.zip"
 	source_code_hash = filebase64sha256("${path.module}/../temp/dist.zip")
 	function_name    = "node-lambda-web-adapter"
 	role             = aws_iam_role.lambda_role.arn
 	handler          = "run.sh"
-	runtime          = "nodejs16.x"
+	runtime          = "nodejs18.x"
 	environment {
 		variables = {
 			NODE_ENV = "production",

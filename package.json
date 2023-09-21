@@ -8,7 +8,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
     "deploy": "./deploy.sh",
-    "destroy": "cd ./terraform && terraform destroy --var-file=vars.tfvars -auto-approve"
+    "destroy": "./destroy.sh"
   },
   "author": "Lucas Canavan",
   "dependencies": {
